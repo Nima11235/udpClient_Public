@@ -1,48 +1,48 @@
 /**
-*	UDP Client Program
-*	Connects to a UDP Server
-*	Receives a line of input from the keyboard and sends it to the server
-*	Receives a response from the server and displays it.
+*  UDP Client Program
+*  Connects to a UDP Server
+*  Receives a line of input from the keyboard and sends it to the server
+*  Receives a response from the server and displays it.
 *
-*	@author: Michael Fahy
-*	ID:	14508
-*	Email:	fahy@chapman.edu
-*	Date:	9/12/2017
-@	version: 2.1
+*  @author: Michael Fahy
+*  email: fahy@chapman.edu
+*  date: 2/4/2018
+*  @version: 3.0
+*
 */
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
-class UDPClient {
-    public static void main(String args[]) throws Exception
-    {
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
-      BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+class UdpClient {
+  public static void main(String[] args) throws Exception {
 
-      DatagramSocket clientSocket = new DatagramSocket();
+    BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
-      InetAddress IPAddress = InetAddress.getByName("localhost");
+    DatagramSocket clientSocket = new DatagramSocket();
 
-      byte[] sendData = new byte[1024];
-      byte[] receiveData = new byte[1024];
+    InetAddress ipAddress = InetAddress.getByName("localhost");
 
-      String sentence = inFromUser.readLine();
-      
-      sendData = sentence.getBytes();
-      
-	    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 9876);
+    byte[] sendData = new byte[1024];
+    byte[] receiveData = new byte[1024];
 
-      clientSocket.send(sendPacket);
+    String sentence = inFromUser.readLine();
+    sendData = sentence.getBytes();
+    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, 9876);
 
-      DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+    clientSocket.send(sendPacket);
 
-      clientSocket.receive(receivePacket);
+    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
-      String modifiedSentence = new String(receivePacket.getData());
+    clientSocket.receive(receivePacket);
 
-      System.out.println("FROM SERVER:" + modifiedSentence);
-      
-      clientSocket.close();
-      }
+    String modifiedSentence = new String(receivePacket.getData());
+
+    System.out.println("FROM SERVER:" + modifiedSentence);
+    clientSocket.close();
+  }
 }
