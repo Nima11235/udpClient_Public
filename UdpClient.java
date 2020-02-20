@@ -27,12 +27,12 @@ class UdpClient {
 
     InetAddress ipAddress = InetAddress.getByName("localhost");
 
+    System.out.println("Type a Sentence");
+    String sentence = inFromUser.readLine();
+
     byte[] sendData = new byte[1024];
     byte[] receiveData = new byte[1024];
-
-    System.out.println("Type a Sentence");
-
-    String sentence = inFromUser.readLine();
+    
     sendData = sentence.getBytes();
     DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, 9876);
 
