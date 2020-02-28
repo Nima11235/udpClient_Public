@@ -19,7 +19,7 @@ import java.net.InetAddress;
 
 
 class MyUdpClient {
-   public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
 
     BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
@@ -36,7 +36,8 @@ class MyUdpClient {
     while (true) {
       System.out.println("Type a Sentence");
       sentence = inFromUser.readLine();
-      if (sentence == "Goodbye"){
+      if (sentence.equals("Goodbye")) {
+        System.out.println(sentence);
         break;
       }          
     
@@ -49,7 +50,7 @@ class MyUdpClient {
 
       clientSocket.receive(receivePacket);
 
-      modifiedSentence = new String (receivePacket.getData());
+      modifiedSentence = new String(receivePacket.getData());
 
       System.out.println("FROM SERVER:" + modifiedSentence);
     }
@@ -57,3 +58,4 @@ class MyUdpClient {
     clientSocket.close();
   }
 }
+
